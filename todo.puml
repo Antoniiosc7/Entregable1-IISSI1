@@ -1,0 +1,187 @@
+
+@startuml
+title ENTREGABLE 1
+
+
+!include estilos/draft.iuml
+
+
+!include clases/asignatura.iuml
+!include clases/alumno.iuml
+!include clases/citaTutoria.iuml
+!include clases/profesor.iuml
+!include clases/tutoria.iuml
+!include clases/aula.iuml
+!include clases/departamento.iuml
+!include clases/espacio.iuml
+!include clases/grado.iuml
+!include clases/grupoActividad.iuml
+!include clases/tipoEspacio.iuml
+!include clases/despacho.iuml
+!include clases/nota.iuml
+
+
+!include enumerados/tipoClase.iuml
+!include enumerados/categoria.iuml
+!include enumerados/tipoAsignatura.iuml
+!include enumerados/tipoAcceso.iuml
+
+
+
+
+
+Tutoria "1" <- "*" Profesor: imparte
+Alumno "*" -> "*" Tutoria: solicita
+(Alumno, Tutoria) ... CitaTutoria
+
+note as N1
+{Máximo de Horas.
+un profesor no puede 
+impartir más de 6 horas
+de tutoría a la semana.}
+end note
+Profesor .. N1
+N1 .. Tutoria
+
+note as N2
+{Profesor Departamento.
+Cada profesor pertenece a 
+un único departamento.}
+end note
+Profesor .. N2
+N2 .. Departamento
+
+note as N3
+{Asignaturas por Departamento.
+cada departamento asume
+la docencia de un determinado
+número de asignaturas.}
+end note
+Asignatura .. N3
+N3 .. Departamento
+
+note as N4
+{Grupos por Asignatura.
+Cada asignatura está
+formada por grupos, donde
+los profesores imparten clases.}
+end note
+Asignatura .. N4
+N4 .. GrupoActividad
+
+note as N5
+{Mínimo de Alumnos.
+Un grupo de actividad
+teorica debe tener al
+menos 15 alumnos.}
+end note
+GrupoActividad .. N5
+N5 .. Alumno
+
+note as N6
+{Restriccion para los Alumnos.
+un alumno no puede tener más 
+de una nota para la misma 
+asignatura, convocatoria y 
+año académico.}
+end note
+Alumno .. N6
+N6 .. Nota
+
+note as N7
+{Alumno y sus grupos.
+un alumno no puede 
+tener notas en grupos 
+a los que no pertenece.}
+end note
+Alumno .. N7
+N7 .. GrupoActividad
+
+note bottom of Nota
+{Cambios de nota.
+una nota no puede alterarse
+de una vez en más de 4 puntos 
+aumentada o disminuida).} 
+end note
+
+note bottom of GrupoActividad
+{Máximo de Alumnos.
+un grupo de teoría no 
+puede tener más de 75 
+alumnos, y uno de 
+laboratorio no más de 25.} 
+end note
+
+note as N8
+{Máximo de Grupos.
+En un año académico un 
+profesor no puede 
+impartir docencia en 
+más de 5 grupos.}
+end note
+Profesor .. N8
+N8 .. GrupoActividad
+
+note as N9
+{Capacidad de Aulas.
+cada aula debe tener 
+capacidad suficiente 
+para los grupos que 
+se imparten en la misma.}
+end note
+Aula .. N9
+N9 .. GrupoActividad
+
+note as N10
+{Máximo de horas de tutoria.
+un profesor PAD no puede dar 
+más de 2h de tutorías a la 
+semana.}
+end note
+Profesor .. N10
+N10 .. Tutoria
+
+note as N11
+{No puede estar en más de un grupo.
+Un alumno no puede pertenecer 
+a más de un grupo de teoría y 
+a más de un grupo de prácticas 
+de cada asignatura.}
+end note
+Alumno .. N11
+N11 .. GrupoActividad
+
+note as N12
+{Los grupos de teoría se impartirán 
+en aulas de teoría y los grupos de 
+laboratorio en aulas de laboratorio.}
+end note
+GrupoActividad .. N12
+N12 .. Aula
+
+note as N13
+{Máximo de tutorias.
+Un alumno no podrá solicitar 
+una nueva tutoría mientras
+tenga una tutoría pendiente.}
+end note
+Alumno .. N13
+N13 .. Tutoria
+
+
+Profesor "1" -> "*" Departamento
+Profesor "*" -> "*" Asignatura
+Profesor -|> Despacho
+
+Departamento "1" <- "*" Asignatura
+
+Aula -|> Espacio
+Despacho -|> Espacio
+
+Nota -|> Asignatura
+Asignatura -|> Grado
+Asignatura -|> GrupoActividad
+
+
+Alumno "1" -> "1" Nota: obtiene
+@enduml

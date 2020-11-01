@@ -1,0 +1,6 @@
+enum TipoAcceso << Enumerado >> {
+    selectividad
+    ciclo
+    mayor
+    tituladoExtrajero
+}

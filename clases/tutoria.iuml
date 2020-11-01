@@ -1,0 +1,5 @@
+class Tutoria <<Entidad>>{
+    diaDeLaSemana
+    horaComienzo
+    horaFin
+}

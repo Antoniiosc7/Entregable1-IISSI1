@@ -1,0 +1,5 @@
+class Espacio <<Entidad>>{
+    nombreEspacio
+    planta
+    capacidad
+}

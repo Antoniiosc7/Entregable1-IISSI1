@@ -1,0 +1,6 @@
+class GrupoActividad <<Entidad>>{
+    nombre
+    añoAcademico
+    creditos
+    actividad: tipoClase
+}

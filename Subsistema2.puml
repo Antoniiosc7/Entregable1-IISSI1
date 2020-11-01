@@ -1,0 +1,105 @@
+@startuml
+title Subsistema 2
+
+!include estilos/draft.iuml
+
+
+!include clases/asignatura.iuml
+!include clases/alumno.iuml
+!include clases/citaTutoria.iuml
+!include clases/profesor.iuml
+!include clases/tutoria.iuml
+!include clases/departamento.iuml
+!include clases/nota.iuml
+!include clases/GrupoActividad.iuml
+
+
+!include enumerados/tipoClase.iuml
+!include enumerados/categoria.iuml
+!include enumerados/tipoAsignatura.iuml
+!include enumerados/tipoAcceso.iuml
+
+Tutoria "1" <- "*" Profesor: imparte
+Alumno "*" -> "1" Tutoria: solicita
+(Alumno, Tutoria) ... CitaTutoria
+Alumno "1" -> "1..*" Nota: tiene
+Nota "1.." - "1" Asignatura
+Profesor *--- Departamento
+Departamento "1" -- "1..*" Asignatura
+Alumno ---* GrupoActividad
+
+note as N1
+*Máximo de Horas.
+un profesor no puede 
+impartir más de 6 horas
+de tutoría a la semana.
+*Máximo de horas de tutoria.
+un profesor PAD no puede dar 
+más de 2h de tutorías a la 
+semana.
+end note
+Profesor .. N1
+N1 .. Tutoria
+
+note as N2
+*Los profesores que imparten 
+una asignatura, deben pertencecer
+al departamento que asume la
+asignatura.
+end note
+Profesor . N2
+N2 .. Departamento
+
+note as N3
+*La cita para la tutoria deberá
+estar definida por una hora que
+esté entre la hora de comienzo
+y de fin de dicha tutoria, y de
+su fecha.
+end note
+CitaTutoria .. N3
+N3 . Tutoria
+
+
+note as N4
+Un alumno no puede tener mas de 
+una nota para la misma asignatura, 
+convocatoria, y año académico
+end note
+Nota .. N4
+N4 . Asignatura
+
+note left of Alumno
+Un alumno no puede
+acceder por selectividad
+siendo menor de 16 años.
+end note
+
+note as N7
+*Un alumno no puede 
+tener notas en grupos 
+a los que no pertenece.
+*Mínimo de Alumnos.
+Un grupo de actividad
+teorica debe tener al
+menos 15 alumnos.
+*Un alumno no puede matricularse
+en mas de 90 créditos o menos
+de 30 en un curso académico.
+end note
+Alumno .. N7
+N7 .. GrupoActividad
+
+note top of Nota
+*Cambios de nota.
+una nota no puede alterarse
+de una vez en más de 4 puntos 
+aumentada o disminuida).
+*Para que una nota sea matricula
+de honor, su valor debe ser igual
+o superior a 9.
+end note
+
+
+
+@enduml

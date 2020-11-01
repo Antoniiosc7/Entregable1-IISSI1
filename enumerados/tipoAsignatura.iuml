@@ -1,0 +1,5 @@
+enum TipoAsignatura << Enumerado >> {
+    obligatoria
+    optativa
+    formaciónBásica
+}

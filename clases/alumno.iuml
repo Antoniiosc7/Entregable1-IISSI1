@@ -1,0 +1,6 @@
+class Alumno <<Entidad>> {
+    dni
+    nombre
+    fechaDeNacimiento
+    metodoDeAcceso: tipoAcceso
+}

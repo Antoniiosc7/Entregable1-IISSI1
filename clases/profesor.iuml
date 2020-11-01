@@ -1,0 +1,8 @@
+Class Profesor <<Entidad>> {
+    dni
+    nombre
+    apellidos
+    fechaDeNacimiento
+    email
+    categoria: Categoria
+}

@@ -1,0 +1,4 @@
+class Aula <<Entidad>>{
+    megafonia
+    proyector
+}

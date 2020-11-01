@@ -1,0 +1,55 @@
+@startuml
+title Subsistema 3
+
+!include estilos/draft.iuml
+
+
+!include clases/asignatura.iuml
+!include clases/profesor.iuml
+!include clases/tutoria.iuml
+!include clases/departamento.iuml
+!include clases/despacho.iuml
+
+
+
+
+!include enumerados/tipoClase.iuml
+!include enumerados/categoria.iuml
+!include enumerados/tipoAsignatura.iuml
+!include enumerados/tipoAcceso.iuml
+
+Tutoria "1" <- "*" Profesor: imparte
+
+Profesor "1" --> "*" Departamento: pertenece a
+Profesor "1..*" -> "1..*" Asignatura
+Profesor "*" -> "1*" Despacho: tiene
+
+
+
+note as N1
+*Un profesor no puede 
+impartir más de 6 horas
+de tutoría a la semana.
+Un profesor PAD no puede dar 
+más de 2h de tutorías a la 
+semana.
+end note
+Profesor .. N1
+N1 .. Tutoria
+
+note as N2
+*Profesor Departamento.
+Cada profesor pertenece a 
+un único departamento.
+end note
+Profesor .. N2
+N2 .. Departamento
+
+note top of Profesor
+*Un profesor no puede impartir
+más de 24 créditos por curso
+académico
+end note
+
+
+@enduml

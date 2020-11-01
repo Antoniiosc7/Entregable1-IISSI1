@@ -1,0 +1,4 @@
+enum TipoClase << Enumerado >> {
+    teoria
+    laboratorio
+}

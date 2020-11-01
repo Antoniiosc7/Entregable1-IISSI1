@@ -1,0 +1,4 @@
+class CitaTutoria <<Entidad>>{
+    fecha
+    hora
+}

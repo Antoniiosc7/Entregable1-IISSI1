@@ -1,0 +1,71 @@
+@startuml
+title Subsistema 1
+
+
+!include estilos/draft.iuml
+
+
+!include clases/asignatura.iuml
+!include clases/profesor.iuml
+!include clases/aula.iuml
+!include clases/espacio.iuml
+!include clases/grado.iuml
+!include clases/grupoActividad.iuml
+!include clases/despacho.iuml
+!include clases/TipoEspacio.iuml
+
+!include enumerados/tipoClase.iuml
+!include enumerados/categoria.iuml
+!include enumerados/tipoAsignatura.iuml
+!include enumerados/tipoAcceso.iuml
+
+Asignatura ---* Grado
+GrupoActividad ---* Asignatura
+GrupoActividad "1..*" -- "1" Aula: tiene
+Profesor "*" -> "1" Despacho: tiene
+Profesor "1..*" -- "1..*" Asignatura: imparte >
+Aula -|> Espacio
+Despacho -|> Espacio
+
+
+
+note right of GrupoActividad
+*Máximo de Alumnos.
+un grupo de teoría no 
+puede tener más de 75 
+alumnos, y uno de 
+laboratorio no más de 25.
+end note
+
+note left of Asignatura
+*Un acrónimo debe estar bien formado,
+lo estará cuando las mayusculas
+coincidan con las mayusculas que
+aparecen en el nombre de la asignatura.
+end note
+note as N8
+*Máximo de Grupos.
+En un año académico un 
+profesor no puede 
+impartir docencia en 
+más de 5 grupos.
+end note
+Profesor .. N8
+N8 .. GrupoActividad
+
+
+
+
+note as N12
+* Los grupos de teoría se impartirán 
+en aulas de teoría y los grupos de 
+laboratorio en aulas de laboratorio.
+* Cada aula debe tener capacidad 
+suficiente para los grupos que se 
+imparten en la misma.
+end note
+GrupoActividad .. N12
+N12 .. Aula
+
+
+@enduml

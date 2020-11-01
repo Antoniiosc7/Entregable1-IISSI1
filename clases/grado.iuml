@@ -1,0 +1,5 @@
+class Grado <<Entidad>>{
+    nombre
+    numDeAños
+    numDeCreditos
+}
